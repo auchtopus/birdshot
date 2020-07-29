@@ -1,0 +1,15 @@
+# Final Config:
+```
+USERNAMEs = "ajj38"
+EMAIL_PASSWORD = os.environ.get('YALE_PASSWORD')
+
+
+
+with smtplib.SMTP('mail.yale.edu', 587) as smtp:
+    smtp.ehlo()
+    smtp.starttls()
+    smtp.ehlo()
+    # login
+    smtp.login(USERNAME, EMAIL_PASSWORD)
+
+    smtp.send_message(msg)

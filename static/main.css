@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap');
+
+body {
+    font-family: Zilla Slab;
+    color: peru;
+}
+p {
+    font-family: Zilla Slab;
+    font-weight: bold;
+    color: peru;
+}
+.li {
+    color: red;
+}
+
+.content-section {
+    margin: auto;
+    color: blue;
+    width: 50%;
+    padding: 20px;
+}
+
+.form-group {
+    width: 50%
+}
