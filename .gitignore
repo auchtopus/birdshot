@@ -1,0 +1,5 @@
+
+email_templates/**
+fonts/**
+.idea/**
+app/__pycache__/**

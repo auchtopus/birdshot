@@ -9,54 +9,54 @@ from email.mime.application import MIMEApplication
 from generate_email_v0 import generate_email
 
 
-def send_email():
-print(sys.version)
-EMAIL_ADDRESS = os.environ.get('YALE_EMAIL')
-USERNAME =  "ajj38"
-EMAIL_PASSWORD = os.environ.get('YALE_PASSWORD')
+def send_email(position, company, recruiter, recruiter_email):
+    print(sys.version)
+    EMAIL_ADDRESS = os.environ.get('YALE_EMAIL')
+    USERNAME =  "ajj38"
+    EMAIL_PASSWORD = os.environ.get('YALE_PASSWORD')
 
 
-# configure message
-msg = MIMEMultipart()
+    # configure message
+    msg = MIMEMultipart()
+
+    # generate body html
+    # position = "Analyst"
+    # company = "Good Morning"
+    # recruiter = "Maria"
+    # heard_about = "GOOD MORNING GOOD NIGHT"
+
+    generate_email(position, company, recruiter, "")
+
+    msg['Subject'] = f"Fall 2020 internship at {company}"
+    msg['From'] = "Anthony Jiang <anthony.jiang@yale.edu>"
+    msg['To'] = recruiter_email ## import from flask app!
 
 
-# generate body html
-position = "Analyst"
-company = "Good Morning"
-recruiter = "Maria"
-heard_about = "GOOD MORNING GOOD NIGHT"
+    with open(f"email_templates/{company}.html", 'rb') as mail_body:
+        msg_text = MIMEText(mail_body.read(),'html', 'utf-8')
 
-generate_email(position, company, recruiter, heard_about)
+    msg.attach(msg_text)
+    with open('/Users/antonsquared/Google_Drive/Jobs/Anthony_Jiang_Resume_SWE.pdf', 'rb') as attachment:
+        attach = MIMEApplication(attachment.read(),_subtype="pdf")
+    attach.add_header('Content-Disposition', 'attachment', filename="Anthony Jiang Resume")
+    msg.attach(attach)
 
-msg['Subject'] = f"Fall 2020 internship at {company}"
-msg['From'] = "Anthony Jiang <anthony.jiang@yale.edu>"
-msg['To'] = "eternalmath@gmail.com" ## import from flask app!
+    with smtplib.SMTP('mail.yale.edu', 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+        # login
+        smtp.login(USERNAME, EMAIL_PASSWORD)
 
-
-with open(f"../email_templates/{company}.html", 'rb') as mail_body:
-    msg_text = MIMEText(mail_body.read(),'html', 'utf-8')
-
-msg.attach(msg_text)
-with open('/Users/antonsquared/Google_Drive/Jobs/Anthony_Jiang_Resume_SWE.pdf', 'rb') as attachment:
-    attach = MIMEApplication(attachment.read(),_subtype="pdf")
-attach.add_header('Content-Disposition', 'attachment', filename="Anthony Jiang Resume")
-msg.attach(attach)
-
-with smtplib.SMTP('mail.yale.edu', 587) as smtp:
-    smtp.ehlo()
-    smtp.starttls()
-    smtp.ehlo()
-    # login
-    smtp.login(USERNAME, EMAIL_PASSWORD)
-
-    smtp.send_message(msg)
-
+        smtp.send_message(msg)
 
 
 
 
 
 
+if __name__ == "__main__":
+    send_email("Hello", "goodbye", "goodmorning", "anthony75025@gmail.com")
 
 
 

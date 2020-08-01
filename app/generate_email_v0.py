@@ -9,15 +9,6 @@ def generate_email(job_name, company_name, recruiter, heard_about):
     </head>
     """
 
-
-
-    # job_name = f"""test_job"""
-    # company_name = f"""test_name"""
-    # recruiter = f"""recruiter_name"""
-
-    # heard_about = f""""""
-
-
     body = f"""
     <body>
 
@@ -50,7 +41,12 @@ def generate_email(job_name, company_name, recruiter, heard_about):
     </body>
     """
 
-    with open(f"../email_templates/{company_name}.html", "w") as output_file:
+    root_dir = "/Users/antonsquared/Projects/kennel"
+    with open(f"{root_dir}/email_templates/{company_name}.html", "w") as output_file: ## configure relative path?
         print(head, file=output_file)
         print(body, file=output_file)
 
+
+
+if __name__ == "__main__":
+    generate_email("1", "4", "3", "4")

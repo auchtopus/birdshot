@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='UTF-8'>
-    <meta name="Description" content="test email">
-</head>
-
-
-<body>
-    
-
+{% extends "boilerplate_web.html" %}
+{% block body %}
 <p>
-Dear {{ information.recruiter_name}},
+Dear {{ recruiter_name}},
 </p>
 
 <p>
-My name is Anthony Jiang, a CS/Math student at Yale '23. I'm considering taking a leave of absence in fall or an entire gap year, and am hoping to fill the {{information.job_position}} role at {{information.company_name}}.  I have intermediate experience with python, especially data analysis and machine learning libraries, as well as experience in C. However, with a months left in the summer, if you need me to learn a new language/tech stack, I’d be eager to do so unpaid before taking on a paid role in fall. 
+My name is Anthony Jiang, a CS/Math student at Yale '23. I'm considering taking a leave of absence in fall or an entire gap year, and am hoping to fill the {{job_position}} role at {{company_name}}.  I have intermediate experience with python, especially data analysis and machine learning libraries, as well as experience in C. However, with a months left in the summer, if you need me to learn a new language/tech stack, I’d be eager to do so unpaid before taking on a paid role in fall. 
 </p>
 <p>
 At Yale, I've completed 223 Data Structures/Programming Techinques and 244 Discrete Math. I have intermediate python experience through my work with Professor Aaron Dollar’s new Yale Tech for Conservation Lab and personal projects. With the YTFC lab, I’ve been using tensorflow/keras to build convolutional neural networks that can speciate leaves, as well as building custom tooling, data pipelines, and verification scripts in python for the other models in the group. I also do analysis on the results, and will be 3rd author on the current paper push. All in all, I'm competent with tensorflow/keras and have experience working with PyTorch. I'm also familiar  with the math underlying deep neural networks as a whole, CNNs, PCAs, and SVMs, and have a working understanding of Mask-RCNN as well as LSTM. 
@@ -24,7 +15,7 @@ Outside of my work with the lab, I have solid experience with data analysis role
 </p>
 
 <p>
-I would love to discuss with you any future opportunities at {{information.company_name}} or schedule a call.
+I would love to discuss with you any future opportunities at {{company_name}} or schedule a call.
 </p>
 <p>
 Thanks,
@@ -32,7 +23,19 @@ Thanks,
 Anthony Jiang
 </p>
 
+<!--  Here's the button! -->
+<div class="border-top pt-3">
+    <p>
+        Address: {{recipient_email}}
+    </p>
+    <div class="content-section">
+            <form method="POST" action="">
+                {{ form.hidden_tag()}}
+                <div class="form-group">
+                    {{ form.submit(class = "btn btn-outline-info")}}
+                </div>
+            </form>
+        </div>
 
-</body>
-
-</html>
+</div>
+{% endblock body %}
