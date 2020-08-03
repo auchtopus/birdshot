@@ -31,7 +31,6 @@ def send_email(position, company, recruiter_email, heard_about):
     msg['From'] = "Anthony Jiang <anthony.jiang@yale.edu>"
     msg['To'] = recruiter_email ## import from flask app!
 
-
     with open(f"email_templates/{company}.html", 'rb') as mail_body:
         msg_text = MIMEText(mail_body.read(),'html', 'utf-8')
     msg.attach(msg_text)
