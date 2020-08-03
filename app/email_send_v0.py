@@ -9,7 +9,7 @@ from email.mime.application import MIMEApplication
 from generate_email_v0 import generate_email
 
 
-def send_email(position, company, recruiter, recruiter_email):
+def send_email(position, company, recruiter_email, heard_about):
     print(sys.version)
     EMAIL_ADDRESS = os.environ.get('YALE_EMAIL')
     USERNAME =  "ajj38"
@@ -25,22 +25,25 @@ def send_email(position, company, recruiter, recruiter_email):
     # recruiter = "Maria"
     # heard_about = "GOOD MORNING GOOD NIGHT"
 
-    generate_email(position, company, recruiter, "")
+    generate_email(position, company, recruiter_email, heard_about)
 
-    msg['Subject'] = f"Fall 2020 internship at {company}"
+    msg['Subject'] = f"Fall 2020 internship opportunities at {company}"
     msg['From'] = "Anthony Jiang <anthony.jiang@yale.edu>"
     msg['To'] = recruiter_email ## import from flask app!
 
 
     with open(f"email_templates/{company}.html", 'rb') as mail_body:
         msg_text = MIMEText(mail_body.read(),'html', 'utf-8')
-
     msg.attach(msg_text)
+
     with open('/Users/antonsquared/Google_Drive/Jobs/Anthony_Jiang_Resume_SWE.pdf', 'rb') as attachment:
         attach = MIMEApplication(attachment.read(),_subtype="pdf")
     attach.add_header('Content-Disposition', 'attachment', filename="Anthony Jiang Resume")
-    msg.attach(attach)
+    msg.attach(attach)  
 
+    with open(f"web_templates/signature.html", 'rb') as mail_signature:
+        signature = MIMEText(mail_signature.read(),'html','utf-8')
+    msg.attach(signature)
     with smtplib.SMTP('mail.yale.edu', 587) as smtp:
         smtp.ehlo()
         smtp.starttls()

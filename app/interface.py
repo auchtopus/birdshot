@@ -9,31 +9,21 @@ import os
 app = Flask(__name__, template_folder="../web_templates", static_folder="../static")
 # app.config.from_object(Config)
 
-app.config['SECRET_KEY'] = '4342821521556b6655d598110a54ca38'
+app.secret_key = os.environ.get('SECRET_KEY', 'dev')
 
-information = {
-        'recruiter_name': 'recruiter_name',
-        'company': 'company_name',
-        'job_position': 'job!!',
-        'flavor_text': 'flavor town!',
-    }
-
-@app.route("/")
-def hello():
-    return render_template(r"template_web.html", information = information)
 
 
 @app.route("/email_render", methods = ["GET","POST"])
 def email_render():
     recipient_email = request.args.get('recipient_email')
     job_position = request.args.get('job_position')
-    recruiter_name = request.args.get('recruiter_name')
+    heard_about = request.args.get('heard_about')
     company_name = request.args.get('company_name')
     confirm_form = SendForm()
     if confirm_form.validate_on_submit():
-        send_email(job_position, company_name, recruiter_name, recipient_email)
+        send_email(job_position, company_name, recipient_email, heard_about)
         ## Send email! 
-    return render_template(r"template_email.html", recruiter_name = recruiter_name, job_position = job_position, company_name = company_name, recipient_email = recipient_email, form = confirm_form)
+    return render_template(r"template_email.html", heard_about = heard_about, job_position = job_position, company_name = company_name, recipient_email = recipient_email, form = confirm_form)
 
 
 @app.route("/form", methods=['GET', 'POST'])
@@ -43,13 +33,15 @@ def form():
         # flash(f"Email sent for {info_form.job_position.data} at {info_form.company_name.data} ", 'success')
         job_position = info_form.job_position.data
         company_name = info_form.company_name.data
-        recruiter_name = info_form.recruiter_name.data
+        heard_about = info_form.heard_about.data
         recipient_email = info_form.recipient_email.data
-        return redirect(url_for('email_render', job_position = job_position, company_name = company_name, recruiter_name = recruiter_name, recipient_email = recipient_email))
+        send_email(job_position, company_name, recipient_email, heard_about)
+        return redirect(url_for('form', form=info_form))
+        # return redirect(url_for('email_render', job_position = job_position, company_name = company_name, heard_about = heard_about, recipient_email = recipient_email))
     # else:
     #     flash("failure!")
     #     return redirect(url_for('form'))
-    return render_template(r"form.html", information = information, form = info_form)
+    return render_template(r"form.html",  form = info_form)
 
 
 

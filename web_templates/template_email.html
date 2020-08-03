@@ -23,19 +23,20 @@ Thanks,
 Anthony Jiang
 </p>
 
-<!--  Here's the button! -->
+<!--  Send button -->
 <div class="border-top pt-3">
     <p>
         Address: {{recipient_email}}
     </p>
     <div class="content-section">
-            <form method="POST" action="">
-                {{ form.hidden_tag()}}
-                <div class="form-group">
-                    {{ form.submit(class = "btn btn-outline-info")}}
-                </div>
-            </form>
-        </div>
-
+        <form method="POST" action="">
+            {{ form.hidden_tag()}}
+            <div class="form-group">
+                {{ form.submit(class = "btn btn-success")}}
+            </div>
+        </form>
+    </div>
 </div>
+
+
 {% endblock body %}

@@ -18,17 +18,17 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{form.recruiter_name.label(class="form-control-label")}}
-                    {{form.recruiter_name(class="form-control-lg")}}
-                    {% if form.recruiter_name.errors %}
+                    {{form.heard_about.label(class="form-control-label")}}
+                    {{form.heard_about(class="form-control-lg")}}
+                    {% if form.heard_about.errors %}
                         <ul class = "errors">
-                                {% for error in form.recruiter_name.errors %}
+                                {% for error in form.heard_about.errors %}
                                     <li> {{error}} </li>
                                 {% endfor %}
                         </ul>
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     {{form.job_position.label(class="form-control-label")}}
                     {{form.job_position(class="form-control-lg")}}
                     {% if form.job_position.errors %}
@@ -38,7 +38,7 @@
                                 {% endfor %}
                         </ul>
                     {% endif %}
-                </div>
+                </div> -->
                 <div class="form-group">
                         {{form.recipient_email.label(class="form-control-label")}}
                         {{form.recipient_email(class="form-control-lg")}}
@@ -52,14 +52,8 @@
                     </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class = "btn btn-outline-info")}}
+                {{ form.submit(class = "btn btn-success")}}
             </div>
         </form>
-    </div>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Good morning!
-        </small>
-
     </div>
 {% endblock body %}
