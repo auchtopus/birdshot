@@ -3,3 +3,7 @@ email_templates/**
 fonts/**
 .idea/**
 app/__pycache__/**
+development_notes.mkd
+email_templates/**
+sandbox.py
+email_buffer/**

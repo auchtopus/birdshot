@@ -1,0 +1,29 @@
+{% extends "boilerplate_web.html" %}
+
+{% block body %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag()}}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4"> Create Email by prompt</legend>
+                {% for field in form %}
+                    <div class="form-group">
+                        {{field.label(class="form-control-label")}}
+                        {{field(class ="form-control-lg")}}
+                        {% if field.errors %}
+                            <ul class = "errors">
+                                {% for error in field.errors %}
+                                    <li> {{error}} </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class = "btn btn-success")}}
+            </div>
+        </form>
+    </div>
+{% endblock body %}

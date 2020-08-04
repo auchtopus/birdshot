@@ -1,6 +1,11 @@
 import os, sys, shutil
 import yaml
 
+
+def generate_email_schema(template_path, **input_dict):
+    pass
+
+
 def generate_email(job_name, company_name, recruiter_email, heard_about):
     head = f"""
     <head>
@@ -39,7 +44,7 @@ def generate_email(job_name, company_name, recruiter_email, heard_about):
     """
 
     root_dir = "/Users/antonsquared/Projects/kennel"
-    with open(f"{root_dir}/email_templates/{company_name}.html", "w") as output_file: ## configure relative path?
+    with open(f"{root_dir}/email_buffer/{company_name}.html", "w") as output_file: ## configure relative path?
         print(head, file=output_file)
         print(body, file=output_file)
 

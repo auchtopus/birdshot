@@ -9,6 +9,8 @@ class EmailForm(FlaskForm):
     recipient_email = StringField('Recipient Email', validators=[Email()])
     submit = SubmitField('Generate Email')
 
+class EmailFormSchema(FlaskForm):
+    pass
 
 class SendForm(FlaskForm):
     submit = SubmitField('Send Email')
