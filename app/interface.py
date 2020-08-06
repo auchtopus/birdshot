@@ -1,12 +1,16 @@
+import os, sys, json
+from pathlib import Path
+
+
 from flask import Flask, render_template, url_for, flash, redirect, request 
-import json
+
 from forms import EmailForm, SendForm, EmailFormSchema
 # from config import Config
 from email_send_v0 import send_email
-from email_send_v0 import process_email.send_email_schema
-import os
+from email_send_v0 import ProcessEmail
 
 
+root_path = Path(__file__).resolve().parents[1]
 app = Flask(__name__, template_folder="../web_templates", static_folder="../static", )
 # app.config.from_object(Config)
 
@@ -49,18 +53,19 @@ def form_test():
     info_form = EmailFormSchema()
     if info_form.validate_on_submit():
         # flash(f"Email sent for {info_form.job_position.data} at {info_form.company_name.data} ", 'success')
-        with open(f"../email_templates/recruitment.json", 'r') as schema:
+        with open(f"{root_path}/email_templates/recruitment.json", 'r') as schema:
             schema = json.load(schema)
             field_dict = schema["Fields"]
         for form_field in info_form:
             field_dict[form_field.name] = form_field.data
-        send_email_schema(field_dict)
+        print(field_dict)
+        ProcessEmail.send_email_schema(field_dict, "recruitment")
         return redirect(url_for('form_test', form=info_form))
         # return redirect(url_for('email_render', job_position = job_position, company_name = company_name, heard_about = heard_about, recipient_email = recipient_email))
     # else:
     #     flash("failure!")
     #     return redirect(url_for('form'))
-    return render_template(r"form_loops.html",  form = info_form)
+    return render_template(r"form_loop.html",  form = info_form)
 
 
 

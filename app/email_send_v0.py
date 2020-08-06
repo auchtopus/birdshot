@@ -1,5 +1,6 @@
 import os, sys
 import json
+from pathlib import Path
 import smtplib
 from email.message import EmailMessage
 from email.mime.multipart import MIMEMultipart
@@ -8,30 +9,35 @@ from email.mime.image  import MIMEImage
 from email.mime.application import MIMEApplication
 from generate_email_v0 import generate_email
 
+root_path = Path(__file__).resolve().parents[1]
 
-class process_email():
+
+class ProcessEmail():
+    ## there is a persistence problem here!
+    
     num_emails = 0
+    
 
-    @classmethod
-    def generate_email_schema(cls, field_dict, schema):
-        cls.num_emails +=1
+    # @classmethod
+    # def generate_email_schema(cls, field_dict, schema):
+    #     cls.num_emails +=1
 
-        with open(f"../email_templates/{schema}.json", "r") as schema_file:
-            schema = json.load(schema_file)
-
-
-
-        ## append to a manifest
-        with open(f"../email_buffer/manifest.json", "w") as manifest_file:
-            ## add the field_dict to the schema, add a field for the number, save
-            pass
-
-        ## save email to the buffer
-        with open(f"../email_buffer/{cls.num_emails}.html", "w") as output_file: ## configure relative path?
-            print(head, file=output_file)
-            print(body, file=output_file)
+    #     with open(f"../email_templates/{schema}.json", "r") as schema_file:
+    #         schema = json.load(schema_file)
 
 
+
+    #     ## append to a manifest
+    #     with open(f"../email_buffer/manifest.json", "w") as manifest_file:
+    #         ## add the field_dict to the schema, add a field for the number, save
+    #         pass
+
+    #     ## save email to the buffer
+    #     with open(f"../email_buffer/{cls.num_emails}.html", "w") as output_file: ## configure relative path?
+    #         print(head, file=output_file)
+    #         print(body, file=output_file)
+
+    @staticmethod
     def send_email_schema(field_dict, schema_name):
 
         # Account information
@@ -44,8 +50,8 @@ class process_email():
         with open(f"../email_templates/{schema_name}.json", 'r') as schema_load:
             schema = json.load(schema_load)
 
-        # Load fieds
-
+        # Load fields
+        
         
         # configure message
 

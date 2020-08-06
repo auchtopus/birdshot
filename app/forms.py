@@ -9,9 +9,15 @@ class EmailForm(FlaskForm):
     recipient_email = StringField('Recipient Email', validators=[Email()])
     submit = SubmitField('Generate Email')
 
+     # make sure this aligns with the json
 class EmailFormSchema(FlaskForm):
-    pass
+    company_name = StringField('Company Name', validators=[DataRequired()])
+    heard_about = StringField('Flavor Text!')
+    job_position = StringField('Job Position')
+    recipient_email = StringField('Recipient Email', validators=[Email()])
+    submit = SubmitField('Generate Email')
 
+   
 class SendForm(FlaskForm):
     submit = SubmitField('Send Email')
 

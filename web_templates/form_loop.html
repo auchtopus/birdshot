@@ -7,6 +7,8 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4"> Create Email by prompt</legend>
                 {% for field in form %}
+                    {% if field.type == "SubmitField" %}
+                    {% else %}
                     <div class="form-group">
                         {{field.label(class="form-control-label")}}
                         {{field(class ="form-control-lg")}}
@@ -18,7 +20,7 @@
                             </ul>
                         {% endif %}
                     </div>
-
+                    {% endif %}
                 {% endfor %}
             </fieldset>
             <div class="form-group">
